@@ -1,1 +1,7 @@
-# requirements.txt
+fastapi
+uvicorn
+python-dotenv
+openai
+sqlalchemy
+psycopg2-binary
+httpx
