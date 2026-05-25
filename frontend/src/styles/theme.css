@@ -322,3 +322,16 @@
   background: transparent;
   border: none;
 }
+
+
+.feature-card,
+.main-btn,
+.nav-item,
+.icon-btn {
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.feature-card {
+  cursor: pointer;
+}

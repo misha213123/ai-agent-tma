@@ -49,9 +49,9 @@ export default function App() {
         </section>
 
         <section className="grid">
-          <button className="feature-card clickable" onClick={() => setScreen("chat")}>
-            <Feature icon={<MessageCircle />} title="AI Chat" text="Общение с ассистентом" />
-          </button>
+         <div className="feature-card" onClick={() => setScreen("chat")} role="button" tabIndex={0}>
+  <Feature icon={<MessageCircle />} title="AI Chat" text="Общение с ассистентом" />
+</div>
 
           <Feature icon={<Bot />} title="AI Agent" text="Выполнение задач" />
           <Feature icon={<Brain />} title="Память" text="Запоминает контекст" />
