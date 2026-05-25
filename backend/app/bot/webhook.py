@@ -18,17 +18,14 @@ async def telegram_webhook(request: Request):
     return {"ok": True}
 
 
-@router.post("/set-webhook")
-async def set_webhook():
+@router.get("/set-webhook")
+async def set_webhook_get():
     webhook_url = f"{settings.backend_url}/telegram/webhook"
     await bot.set_webhook(webhook_url)
-    return {
-        "ok": True,
-        "webhook_url": webhook_url,
-    }
+    return {"ok": True, "webhook_url": webhook_url}
 
 
-@router.post("/delete-webhook")
-async def delete_webhook():
+@router.get("/delete-webhook")
+async def delete_webhook_get():
     await bot.delete_webhook()
     return {"ok": True}
