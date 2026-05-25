@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Bot,
   Brain,
@@ -10,7 +11,19 @@ import {
   ShieldCheck
 } from "lucide-react";
 
+import ChatPage from "./pages/ChatPage";
+
 export default function App() {
+  const [screen, setScreen] = useState("home");
+
+  if (screen === "chat") {
+    return (
+      <div className="app">
+        <ChatPage onBack={() => setScreen("home")} />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <main className="phone">
@@ -24,6 +37,9 @@ export default function App() {
         </header>
 
         <section className="premium-card glow">
+            <button className="main-btn" onClick={() => setScreen("chat")}>
+  Открыть AI Chat
+</button>
           <div>
             <p className="eyebrow">PREMIUM</p>
             <h2>AI Agent активен</h2>
@@ -33,7 +49,10 @@ export default function App() {
         </section>
 
         <section className="grid">
-          <Feature icon={<MessageCircle />} title="AI Chat" text="Общение с ассистентом" />
+          <button className="feature-card clickable" onClick={() => setScreen("chat")}>
+            <Feature icon={<MessageCircle />} title="AI Chat" text="Общение с ассистентом" />
+          </button>
+
           <Feature icon={<Bot />} title="AI Agent" text="Выполнение задач" />
           <Feature icon={<Brain />} title="Память" text="Запоминает контекст" />
           <Feature icon={<BarChart3 />} title="Аналитика" text="Статистика запросов" />
@@ -64,7 +83,7 @@ export default function App() {
 
         <nav className="bottom-nav">
           <Nav icon={<Sparkles />} label="Главная" active />
-          <Nav icon={<MessageCircle />} label="Чат" />
+          <Nav icon={<MessageCircle />} label="Чат" onClick={() => setScreen("chat")} />
           <Nav icon={<Bot />} label="Агент" />
           <Nav icon={<Brain />} label="Память" />
           <Nav icon={<User />} label="Профиль" />
@@ -76,11 +95,11 @@ export default function App() {
 
 function Feature({ icon, title, text }) {
   return (
-    <div className="feature-card">
+    <>
       <div className="feature-icon">{icon}</div>
       <h3>{title}</h3>
       <p>{text}</p>
-    </div>
+    </>
   );
 }
 
@@ -97,11 +116,11 @@ function Task({ icon, title, text }) {
   );
 }
 
-function Nav({ icon, label, active }) {
+function Nav({ icon, label, active, onClick }) {
   return (
-    <div className={`nav-item ${active ? "active" : ""}`}>
+    <button className={`nav-item ${active ? "active" : ""}`} onClick={onClick}>
       {icon}
       <span>{label}</span>
-    </div>
+    </button>
   );
 }
