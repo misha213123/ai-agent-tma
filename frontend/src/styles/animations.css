@@ -1,12 +1,61 @@
+.fade-in {
+  animation: fadeIn 0.45s ease;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.float {
+  animation: floating 3s ease-in-out infinite;
+}
+
 .glow {
-  animation: glowPulse 2.8s infinite ease-in-out;
+  animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 18px rgba(174, 0, 255, 0.18);
+  from {
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.15);
   }
-  50% {
-    box-shadow: 0 0 34px rgba(0, 234, 255, 0.3);
+
+  to {
+    box-shadow: 0 0 40px rgba(155, 44, 255, 0.4);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

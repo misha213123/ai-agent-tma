@@ -5,13 +5,13 @@ import {
   BarChart3,
   MessageCircle,
   User,
-  Plus,
-  Search,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Cpu,
 } from "lucide-react";
 
 import ChatPage from "./pages/ChatPage";
+import AgentPage from "./pages/AgentPage";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
@@ -19,108 +19,145 @@ export default function App() {
   if (screen === "chat") {
     return (
       <div className="app">
+        <div className="background-glow"></div>
         <ChatPage onBack={() => setScreen("home")} />
+      </div>
+    );
+  }
+
+  if (screen === "agent") {
+    return (
+      <div className="app">
+        <div className="background-glow"></div>
+        <AgentPage onBack={() => setScreen("home")} />
       </div>
     );
   }
 
   return (
     <div className="app">
+      <div className="background-glow"></div>
+
       <main className="phone">
         <header className="topbar">
-          <button className="icon-btn">☰</button>
           <div>
-            <p className="eyebrow">AI ASSISTANT</p>
-            <h1>Привет, Михаил 👋</h1>
+            <p className="eyebrow">NEURAL SYSTEM</p>
+            <h1>AI Agent</h1>
           </div>
+
           <div className="avatar">M</div>
         </header>
 
-        <section className="premium-card glow">
-            <button className="main-btn" onClick={() => setScreen("chat")}>
-  Открыть AI Chat
-</button>
+        <section className="hero-card glow">
           <div>
-            <p className="eyebrow">PREMIUM</p>
-            <h2>AI Agent активен</h2>
-            <span>GPT + память + задачи</span>
+            <p className="eyebrow">PREMIUM AI</p>
+            <h2>Neon Intelligence</h2>
+            <span>GPT + Agent + Memory + Tasks</span>
           </div>
-          <Sparkles size={34} />
+
+          <Sparkles size={42} />
         </section>
 
-        <section className="grid">
-         <div className="feature-card" onClick={() => setScreen("chat")} role="button" tabIndex={0}>
-  <Feature icon={<MessageCircle />} title="AI Chat" text="Общение с ассистентом" />
-</div>
+        <section className="feature-grid">
+          <div
+            className="feature-card"
+            onClick={() => setScreen("chat")}
+          >
+            <div className="feature-icon">
+              <MessageCircle />
+            </div>
 
-          <Feature icon={<Bot />} title="AI Agent" text="Выполнение задач" />
-          <Feature icon={<Brain />} title="Память" text="Запоминает контекст" />
-          <Feature icon={<BarChart3 />} title="Аналитика" text="Статистика запросов" />
+            <h3>AI Chat</h3>
+            <p>Быстрый умный ассистент</p>
+          </div>
+
+          <div
+            className="feature-card"
+            onClick={() => setScreen("agent")}
+          >
+            <div className="feature-icon">
+              <Bot />
+            </div>
+
+            <h3>AI Agent</h3>
+            <p>Выполнение задач по шагам</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">
+              <Brain />
+            </div>
+
+            <h3>Memory</h3>
+            <p>Память диалога</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">
+              <Cpu />
+            </div>
+
+            <h3>Automation</h3>
+            <p>Автоматические действия</p>
+          </div>
         </section>
 
         <section className="panel">
           <div className="section-head">
-            <h3>Быстрые задачи</h3>
-            <span>Все</span>
+            <h3>Возможности</h3>
           </div>
 
-          <Task icon={<Search />} title="Найти информацию" text="AI агент соберёт данные" />
-          <Task icon={<Sparkles />} title="Написать текст" text="Пост, письмо, сценарий" />
-          <Task icon={<ShieldCheck />} title="Проанализировать файл" text="PDF, документ, таблица" />
-        </section>
+          <div className="task">
+            <div className="task-icon">
+              <ShieldCheck />
+            </div>
 
-        <section className="agent-card">
-          <div>
-            <p className="eyebrow">AI AGENT</p>
-            <h3>Создать новую задачу</h3>
-            <span>Опиши цель — агент выполнит шаги</span>
+            <div>
+              <h4>AI Analysis</h4>
+              <p>Анализ идей, текста и задач</p>
+            </div>
           </div>
-          <button className="main-btn">
-            <Plus size={20} />
-            Новая задача
-          </button>
+
+          <div className="task">
+            <div className="task-icon">
+              <BarChart3 />
+            </div>
+
+            <div>
+              <h4>Agent Planning</h4>
+              <p>Планирование шагов выполнения</p>
+            </div>
+          </div>
         </section>
 
         <nav className="bottom-nav">
-          <Nav icon={<Sparkles />} label="Главная" active />
-          <Nav icon={<MessageCircle />} label="Чат" onClick={() => setScreen("chat")} />
-          <Nav icon={<Bot />} label="Агент" />
-          <Nav icon={<Brain />} label="Память" />
-          <Nav icon={<User />} label="Профиль" />
+          <button className="nav-item active">
+            <Sparkles size={18} />
+            <span>Главная</span>
+          </button>
+
+          <button
+            className="nav-item"
+            onClick={() => setScreen("chat")}
+          >
+            <MessageCircle size={18} />
+            <span>Чат</span>
+          </button>
+
+          <button
+            className="nav-item"
+            onClick={() => setScreen("agent")}
+          >
+            <Bot size={18} />
+            <span>Агент</span>
+          </button>
+
+          <button className="nav-item">
+            <User size={18} />
+            <span>Профиль</span>
+          </button>
         </nav>
       </main>
     </div>
-  );
-}
-
-function Feature({ icon, title, text }) {
-  return (
-    <>
-      <div className="feature-icon">{icon}</div>
-      <h3>{title}</h3>
-      <p>{text}</p>
-    </>
-  );
-}
-
-function Task({ icon, title, text }) {
-  return (
-    <div className="task">
-      <div className="task-icon">{icon}</div>
-      <div>
-        <h4>{title}</h4>
-        <p>{text}</p>
-      </div>
-      <span>›</span>
-    </div>
-  );
-}
-
-function Nav({ icon, label, active, onClick }) {
-  return (
-    <button className={`nav-item ${active ? "active" : ""}`} onClick={onClick}>
-      {icon}
-      <span>{label}</span>
-    </button>
   );
 }

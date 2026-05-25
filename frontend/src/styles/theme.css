@@ -335,3 +335,192 @@
 .feature-card {
   cursor: pointer;
 }
+
+
+.background-glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(0, 234, 255, 0.14), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(155, 44, 255, 0.18), transparent 35%);
+  pointer-events: none;
+}
+
+.hero-card {
+  margin-top: 18px;
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16, 17, 30, 0.95),
+      rgba(25, 26, 42, 0.95)
+    );
+  border: 1px solid rgba(114, 247, 255, 0.14);
+}
+
+.hero-card h2 {
+  margin-top: 8px;
+  font-size: 34px;
+}
+
+.hero-card span {
+  color: rgba(255,255,255,0.72);
+}
+
+.feature-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(114,247,255,0.12);
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(114,247,255,0.35);
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #00eaff, #9b2cff);
+  box-shadow: 0 0 20px rgba(0,234,255,0.25);
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  color: rgba(255,255,255,0.65);
+  font-size: 14px;
+}
+
+.agent-screen {
+  padding-bottom: 120px;
+}
+
+.agent-hero {
+  margin-top: 20px;
+  padding: 24px;
+  border-radius: 26px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(14, 15, 26, 0.98),
+      rgba(24, 24, 42, 0.98)
+    );
+  border: 1px solid rgba(114,247,255,0.15);
+  display: flex;
+  gap: 18px;
+}
+
+.agent-hero h1 {
+  margin-top: 6px;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.agent-hero span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255,255,255,0.7);
+}
+
+.agent-input-panel {
+  margin-top: 22px;
+}
+
+.agent-input-panel textarea {
+  width: 100%;
+  min-height: 130px;
+  border-radius: 22px;
+  border: 1px solid rgba(114,247,255,0.15);
+  background: rgba(255,255,255,0.04);
+  color: white;
+  padding: 18px;
+  resize: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.agent-input-panel .main-btn {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.agent-loading {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #72f7ff;
+}
+
+.agent-steps {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.agent-step {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(114,247,255,0.1);
+}
+
+.step-index {
+  color: #72f7ff;
+}
+
+.agent-step h3 {
+  margin-bottom: 6px;
+}
+
+.agent-step p {
+  color: rgba(255,255,255,0.72);
+  line-height: 1.5;
+}
+
+.agent-result {
+  margin-top: 12px;
+  padding: 24px;
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,234,255,0.08),
+      rgba(155,44,255,0.12)
+    );
+  border: 1px solid rgba(114,247,255,0.15);
+}
+
+.agent-result h3 {
+  margin: 8px 0 14px;
+}
+
+.agent-result p {
+  line-height: 1.6;
+  color: rgba(255,255,255,0.86);
+}
