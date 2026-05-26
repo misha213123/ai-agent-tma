@@ -14,6 +14,7 @@ import {
 
 import ChatPage from "./pages/ChatPage";
 import AgentPage from "./pages/AgentPage";
+import HistoryPage from "./pages/HistoryPage";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
@@ -33,6 +34,15 @@ export default function App() {
       </div>
     );
   }
+
+if (screen === "history") {
+  return (
+    <div className="app">
+      <HistoryPage onBack={() => setScreen("home")} />
+    </div>
+  );
+}
+
 
   return (
     <div className="app">
@@ -156,10 +166,10 @@ export default function App() {
             <span>Агент</span>
           </button>
 
-          <button className="nav-item" type="button">
-            <User size={18} />
-            <span>Профиль</span>
-          </button>
+          <button className="nav-item" type="button" onClick={() => setScreen("history")}>
+  <User size={18} />
+  <span>История</span>
+</button>
         </nav>
       </main>
     </div>

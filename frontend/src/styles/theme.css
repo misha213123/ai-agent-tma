@@ -638,3 +638,57 @@ button {
     border: 1px solid rgba(114, 247, 255, 0.14);
   }
 }
+
+
+.danger-btn {
+  width: 100%;
+  margin-top: 18px;
+  min-height: 50px;
+  border-radius: 19px;
+  background: rgba(255, 69, 114, 0.12);
+  border: 1px solid rgba(255, 69, 114, 0.28);
+  color: #ff7a9c;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.history-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-item {
+  padding: 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(114, 247, 255, 0.11);
+}
+
+.history-item span {
+  display: block;
+  margin-bottom: 7px;
+  color: #72f7ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.history-item.user span {
+  color: #ff7af7;
+}
+
+.history-item p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.empty-text {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.55);
+}
