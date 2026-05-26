@@ -31,31 +31,22 @@ button {
 
 .app {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 12px;
+  display: block;
+  padding: 0;
   background:
     radial-gradient(circle at 8% 10%, rgba(255, 45, 247, 0.22), transparent 30%),
     radial-gradient(circle at 90% 20%, rgba(0, 234, 255, 0.18), transparent 32%),
-    radial-gradient(circle at 50% 100%, rgba(135, 70, 255, 0.22), transparent 38%),
     #050615;
 }
 
 .phone {
   width: 100%;
-  max-width: 430px;
-  min-height: calc(100vh - 24px);
-  position: relative;
-  overflow: hidden auto;
-  padding: 22px 18px 96px;
-  border-radius: 34px;
-  background:
-    linear-gradient(180deg, rgba(13, 15, 35, 0.97), rgba(6, 7, 19, 0.97)),
-    #08091d;
-  border: 1px solid rgba(114, 247, 255, 0.15);
-  box-shadow:
-    0 0 55px rgba(151, 40, 255, 0.35),
-    inset 0 0 60px rgba(0, 234, 255, 0.035);
+  max-width: none;
+  min-height: 100vh;
+  border-radius: 0;
+  padding: 18px 16px 92px;
+  border: none;
+  box-shadow: none;
 }
 
 .orb {
@@ -127,19 +118,9 @@ button {
 }
 
 .premium-hero {
-  position: relative;
-  z-index: 2;
-  margin-top: 22px;
-  padding: 24px;
-  min-height: 240px;
-  display: flex;
-  align-items: flex-end;
-  border-radius: 32px;
-  overflow: hidden;
-  background:
-    linear-gradient(145deg, rgba(255, 45, 247, 0.14), rgba(0, 234, 255, 0.08)),
-    linear-gradient(180deg, rgba(24, 27, 55, 0.98), rgba(9, 11, 30, 0.98));
-  border: 1px solid rgba(114, 247, 255, 0.18);
+  min-height: auto;
+  padding: 20px;
+  border-radius: 26px;
 }
 
 .premium-hero::before {
@@ -184,10 +165,7 @@ button {
 }
 
 .premium-hero h2 {
-  margin: 16px 0 10px;
-  font-size: 34px;
-  line-height: 1.02;
-  letter-spacing: -1px;
+  font-size: 28px;
 }
 
 .premium-hero p {
@@ -254,26 +232,14 @@ button {
 }
 
 .main-grid {
-  position: relative;
-  z-index: 2;
-  margin-top: 17px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .big-card {
-  width: 100%;
-  min-height: 158px;
-  padding: 22px;
-  border-radius: 28px;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(145deg, rgba(24, 27, 55, 0.95), rgba(11, 13, 31, 0.95));
-  border: 1px solid rgba(167, 67, 255, 0.25);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  min-height: 145px;
+  padding: 17px;
+  border-radius: 24px;
 }
 
 .big-card:active,
@@ -299,31 +265,19 @@ button {
   background: rgba(255, 45, 247, 0.16);
 }
 
-.card-icon,
-.tool-icon,
-.task-icon,
-.feature-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 20px;
-  display: grid;
-  place-items: center;
-  color: white;
-  background: linear-gradient(135deg, #00eaff, #9b2cff, #ff2df7);
-  box-shadow: 0 0 24px rgba(255, 45, 247, 0.26);
+.card-icon {
+  width: 48px;
+  height: 48px;
 }
 
 .big-card h3 {
-  margin: 16px 0 7px;
-  font-size: 25px;
+  font-size: 19px;
 }
 
 .big-card p {
-  margin: 0;
-  max-width: 260px;
-  color: rgba(255, 255, 255, 0.68);
-  line-height: 1.42;
+  font-size: 13px;
 }
+
 
 .big-card span {
   margin-top: 16px;
