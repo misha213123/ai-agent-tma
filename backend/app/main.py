@@ -4,10 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.bot.webhook import router as telegram_router
 from app.core.config import settings
-from app.db.database import Base, engine
-from app.models import Message, User
 
-Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title=settings.app_name,

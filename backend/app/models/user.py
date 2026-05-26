@@ -1,1 +1,12 @@
-# user.py
+from sqlalchemy import Column, Integer, String
+
+from app.db.database import Base
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    telegram_id = Column(String, unique=True, index=True, nullable=False)
+    first_name = Column(String, nullable=True)
+    username = Column(String, nullable=True)
