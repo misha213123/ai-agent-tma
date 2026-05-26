@@ -1,5 +1,5 @@
 .fade-in {
-  animation: fadeIn 0.45s ease;
+  animation: fadeIn 0.45s ease both;
 }
 
 .spin {
@@ -11,7 +11,27 @@
 }
 
 .glow {
-  animation: glowPulse 3s infinite alternate;
+  animation: glowPulse 2.8s infinite alternate;
+}
+
+.pulse {
+  animation: pulseAvatar 2.4s infinite ease-in-out;
+}
+
+.feature-card {
+  animation: cardUp 0.45s ease both;
+}
+
+.feature-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.feature-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.feature-card:nth-child(4) {
+  animation-delay: 0.24s;
 }
 
 @keyframes fadeIn {
@@ -26,35 +46,53 @@
   }
 }
 
+@keyframes cardUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes floating {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
   }
 
   100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
 }
 
 @keyframes glowPulse {
   from {
-    box-shadow: 0 0 20px rgba(0, 234, 255, 0.15);
+    box-shadow: 0 0 18px rgba(0, 234, 255, 0.15);
   }
 
   to {
-    box-shadow: 0 0 40px rgba(155, 44, 255, 0.4);
+    box-shadow: 0 0 42px rgba(255, 45, 247, 0.32);
+  }
+}
+
+@keyframes pulseAvatar {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(0, 234, 255, 0.25);
+  }
+
+  50% {
+    box-shadow: 0 0 32px rgba(255, 45, 247, 0.45);
   }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
   to {
     transform: rotate(360deg);
   }
