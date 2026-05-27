@@ -16,6 +16,7 @@ export default function AgentPage({ onBack }) {
   const [steps, setSteps] = useState([]);
   const [result, setResult] = useState("");
   const [history, setHistory] = useState([]);
+  const [mode, setMode] = useState("fast");
 
   async function loadHistory() {
     try {
@@ -35,7 +36,7 @@ export default function AgentPage({ onBack }) {
     setResult("");
 
     try {
-      const data = await runAgentTask(text);
+      const data = await runAgentTask(text, mode);
       setSteps(data.steps || []);
       setResult(data.final_result || "");
       setTask("");
@@ -85,6 +86,25 @@ export default function AgentPage({ onBack }) {
           <span>Агент сохраняет задачи и историю выполнения.</span>
         </div>
       </section>
+
+<div className="agent-mode-switch">
+  <button
+    type="button"
+    className={mode === "fast" ? "active" : ""}
+    onClick={() => setMode("fast")}
+  >
+    ⚡ Fast
+  </button>
+
+  <button
+    type="button"
+    className={mode === "smart" ? "active" : ""}
+    onClick={() => setMode("smart")}
+  >
+    🧠 Smart
+  </button>
+</div>
+
 
       <section className="agent-input-panel">
         <textarea

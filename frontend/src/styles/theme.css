@@ -767,3 +767,49 @@ button {
   color: rgba(255, 255, 255, 0.58);
   font-size: 12px;
 }
+
+.agent-mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.agent-mode-switch button {
+  min-height: 46px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(114, 247, 255, 0.14);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 900;
+}
+
+.agent-mode-switch button.active {
+  color: white;
+  background: linear-gradient(135deg, #9b2cff, #ff2df7, #00eaff);
+  box-shadow: 0 0 22px rgba(255, 45, 247, 0.28);
+}
+
+
+
+.agent-mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 18px 0 14px;
+}
+
+.agent-mode-switch button {
+  min-height: 46px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(114, 247, 255, 0.14);
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 900;
+}
+
+.agent-mode-switch button.active {
+  color: white;
+  background: linear-gradient(135deg, #9b2cff, #ff2df7, #00eaff);
+  box-shadow: 0 0 22px rgba(255, 45, 247, 0.28);
+}

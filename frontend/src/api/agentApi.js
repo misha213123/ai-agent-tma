@@ -4,7 +4,7 @@ const API_URL =
   import.meta.env.VITE_API_URL ||
   "https://ai-agent-backend-ptl5.onrender.com";
 
-export async function runAgentTask(task) {
+export async function runAgentTask(task, mode = "fast") {
   const tgUser = getTelegramUser();
 
   const response = await fetch(`${API_URL}/api/v1/agent/run`, {
@@ -13,9 +13,10 @@ export async function runAgentTask(task) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      task,
-      telegram_id: tgUser.telegram_id,
-    }),
+  task,
+  telegram_id: tgUser.telegram_id,
+  mode,
+}),
   });
 
   if (!response.ok) {
