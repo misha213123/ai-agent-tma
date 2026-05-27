@@ -15,6 +15,7 @@ import {
 import ChatPage from "./pages/ChatPage";
 import AgentPage from "./pages/AgentPage";
 import HistoryPage from "./pages/HistoryPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
@@ -26,6 +27,16 @@ export default function App() {
       </div>
     );
   }
+
+
+  if (screen === "profile") {
+  return (
+    <div className="app">
+      <ProfilePage onBack={() => setScreen("home")} />
+    </div>
+  );
+}
+
 
   if (screen === "agent") {
     return (
@@ -160,6 +171,11 @@ if (screen === "history") {
             <MessageCircle size={18} />
             <span>Чат</span>
           </button>
+
+<button className="nav-item" type="button" onClick={() => setScreen("profile")}>
+  <User size={18} />
+  <span>Профиль</span>
+</button>
 
           <button className="nav-item" type="button" onClick={() => setScreen("agent")}>
             <Bot size={18} />
