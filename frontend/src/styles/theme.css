@@ -718,3 +718,52 @@ button {
   color: white;
   font-size: 15px;
 }
+
+
+.agent-history {
+  margin-top: 24px;
+  padding-bottom: 20px;
+}
+
+.agent-history-card {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(114, 247, 255, 0.12);
+}
+
+.agent-history-card:active {
+  transform: scale(0.98);
+}
+
+.agent-history-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #72f7ff;
+  background: rgba(114, 247, 255, 0.09);
+  border: 1px solid rgba(114, 247, 255, 0.15);
+}
+
+.agent-history-card h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  line-height: 1.3;
+  max-height: 38px;
+  overflow: hidden;
+}
+
+.agent-history-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+}

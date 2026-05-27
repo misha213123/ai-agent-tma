@@ -24,3 +24,17 @@ export async function runAgentTask(task) {
 
   return response.json();
 }
+
+export async function getAgentHistory() {
+  const tgUser = getTelegramUser();
+
+  const response = await fetch(
+    `${API_URL}/api/v1/agent/history?telegram_id=${tgUser.telegram_id}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Не удалось загрузить историю агента");
+  }
+
+  return response.json();
+}

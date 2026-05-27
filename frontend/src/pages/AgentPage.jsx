@@ -1,12 +1,30 @@
-import { useState } from "react";
-import { ArrowLeft, Bot, Loader2, Send, Sparkles, CheckCircle2 } from "lucide-react";
-import { runAgentTask } from "../api/agentApi";
+import { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  Bot,
+  CheckCircle2,
+  Clock3,
+  Loader2,
+  Send,
+  Sparkles,
+} from "lucide-react";
+import { getAgentHistory, runAgentTask } from "../api/agentApi";
 
 export default function AgentPage({ onBack }) {
   const [task, setTask] = useState("");
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState([]);
   const [result, setResult] = useState("");
+  const [history, setHistory] = useState([]);
+
+  async function loadHistory() {
+    try {
+      const data = await getAgentHistory();
+      setHistory(data.items || []);
+    } catch {
+      setHistory([]);
+    }
+  }
 
   async function handleRun() {
     const text = task.trim();
@@ -20,37 +38,51 @@ export default function AgentPage({ onBack }) {
       const data = await runAgentTask(text);
       setSteps(data.steps || []);
       setResult(data.final_result || "");
-    } catch (error) {
+      setTask("");
+      await loadHistory();
+    } catch {
       setResult("Ошибка Agent Mode. Проверь backend и endpoint /api/v1/agent/run.");
     } finally {
       setLoading(false);
     }
   }
 
+  function openHistoryItem(item) {
+    setTask(item.task);
+    setSteps(item.steps || []);
+    setResult(item.final_result || "");
+  }
+
+  useEffect(() => {
+    loadHistory();
+  }, []);
+
   return (
-    <main className="phone agent-screen">
+    <main className="phone agent-screen fade-in">
       <header className="chat-header">
-        <button className="icon-btn" onClick={onBack}>
+        <button className="icon-btn" type="button" onClick={onBack}>
           <ArrowLeft size={20} />
         </button>
 
         <div className="chat-title">
-          <div className="bot-avatar">
+          <div className="bot-avatar pulse">
             <Bot size={20} />
           </div>
+
           <div>
-            <h2>AI Agent</h2>
-            <p>{loading ? "выполняет задачу..." : "готов к работе"}</p>
+            <h2>AI Агент</h2>
+            <p>{loading ? "выполняет задачу..." : "workspace онлайн"}</p>
           </div>
         </div>
       </header>
 
       <section className="agent-hero glow">
-        <Sparkles size={30} />
+        <Sparkles size={28} />
+
         <div>
-          <p className="eyebrow">AGENT MODE</p>
-          <h1>Дай задачу — агент разложит её по шагам</h1>
-          <span>Анализ → План → Выполнение → Итог</span>
+          <p className="eyebrow">AGENT WORKSPACE</p>
+          <h1>Задача → шаги → результат</h1>
+          <span>Агент сохраняет задачи и историю выполнения.</span>
         </div>
       </section>
 
@@ -58,10 +90,10 @@ export default function AgentPage({ onBack }) {
         <textarea
           value={task}
           onChange={(event) => setTask(event.target.value)}
-          placeholder="Например: найди 5 идей для AI Mini App, оцени спрос, сложность и выбери лучшую..."
+          placeholder="Например: проанализируй 3 идеи для AI Mini App и выбери лучшую..."
         />
 
-        <button className="main-btn" onClick={handleRun}>
+        <button className="main-btn" type="button" onClick={handleRun}>
           {loading ? <Loader2 className="spin" size={20} /> : <Send size={20} />}
           Запустить агента
         </button>
@@ -71,7 +103,7 @@ export default function AgentPage({ onBack }) {
         {loading && (
           <div className="agent-loading">
             <Loader2 className="spin" size={22} />
-            <span>AI агент думает и строит план...</span>
+            <span>AI агент строит план и выполняет задачу...</span>
           </div>
         )}
 
@@ -80,6 +112,7 @@ export default function AgentPage({ onBack }) {
             <div className="step-index">
               <CheckCircle2 size={20} />
             </div>
+
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -94,6 +127,35 @@ export default function AgentPage({ onBack }) {
             <p>{result}</p>
           </div>
         )}
+      </section>
+
+      <section className="agent-history">
+        <div className="section-title">
+          <h3>История агента</h3>
+          <p>Последние выполненные задачи</p>
+        </div>
+
+        {history.length === 0 && (
+          <p className="empty-text">История агента пока пустая</p>
+        )}
+
+        {history.map((item) => (
+          <button
+            className="agent-history-card"
+            type="button"
+            key={item.id}
+            onClick={() => openHistoryItem(item)}
+          >
+            <div className="agent-history-icon">
+              <Clock3 size={18} />
+            </div>
+
+            <div>
+              <h4>{item.task}</h4>
+              <p>{item.steps?.length || 0} шагов • сохранённый результат</p>
+            </div>
+          </button>
+        ))}
       </section>
     </main>
   );
