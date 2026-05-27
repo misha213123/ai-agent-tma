@@ -1,12 +1,21 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://ai-agent-backend-ptl5.onrender.com";
+import { getTelegramUser } from "../utils/telegram";
+
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://ai-agent-backend-ptl5.onrender.com";
 
 export async function runAgentTask(task) {
+  const tgUser = getTelegramUser();
+
   const response = await fetch(`${API_URL}/api/v1/agent/run`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ task })
+    body: JSON.stringify({
+      task,
+      telegram_id: tgUser.telegram_id,
+    }),
   });
 
   if (!response.ok) {
