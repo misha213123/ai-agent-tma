@@ -10,25 +10,29 @@ class AgentService:
 
     async def run_agent(self, task: str) -> dict:
         response = await self.client.responses.create(
-            model="gpt-4.1-mini",
+            model="gpt-5-mini",
+            reasoning={
+                "effort": "medium",
+            },
             input=[
                 {
                     "role": "system",
                     "content": (
-                        "Ты AI агент внутри Telegram Mini App. "
-                        "Ты выполняешь задачи по шагам. "
-                        "Отвечай строго валидным JSON. "
-                        "Не используй markdown. "
-                        "Не добавляй ```json. "
-                        "Структура ответа должна быть такой: "
+                        "Ты мощный AI агент внутри Telegram Mini App. "
+                        "Работай как Planner + Executor + Critic. "
+                        "Сначала анализируй задачу, потом строй план, затем выполняй, "
+                        "потом проверяй результат и давай финальный вывод. "
+                        "Отвечай строго валидным JSON без markdown и без ```json. "
+                        "Структура: "
                         "{"
                         "\"steps\":["
-                        "{\"title\":\"Анализ задачи\",\"description\":\"краткое описание\",\"status\":\"done\"},"
-                        "{\"title\":\"План действий\",\"description\":\"краткое описание\",\"status\":\"done\"},"
-                        "{\"title\":\"Выполнение\",\"description\":\"краткое описание\",\"status\":\"done\"},"
-                        "{\"title\":\"Итог\",\"description\":\"краткое описание\",\"status\":\"done\"}"
+                        "{\"title\":\"Анализ задачи\",\"description\":\"...\",\"status\":\"done\"},"
+                        "{\"title\":\"План действий\",\"description\":\"...\",\"status\":\"done\"},"
+                        "{\"title\":\"Выполнение\",\"description\":\"...\",\"status\":\"done\"},"
+                        "{\"title\":\"Проверка результата\",\"description\":\"...\",\"status\":\"done\"},"
+                        "{\"title\":\"Финальный вывод\",\"description\":\"...\",\"status\":\"done\"}"
                         "],"
-                        "\"final_result\":\"финальный подробный ответ\""
+                        "\"final_result\":\"подробный итоговый ответ\""
                         "}"
                     ),
                 },
@@ -46,21 +50,23 @@ class AgentService:
 
         try:
             result = json.loads(raw_text)
+
             return {
                 "steps": result.get("steps", []),
                 "final_result": result.get("final_result", raw_text),
             }
+
         except Exception:
             return {
                 "steps": [
                     {
                         "title": "Анализ задачи",
-                        "description": "Агент обработал запрос.",
+                        "description": "Агент обработал задачу и подготовил ответ.",
                         "status": "done",
                     },
                     {
-                        "title": "Выполнение",
-                        "description": "Ответ получен от AI модели.",
+                        "title": "Финальный вывод",
+                        "description": "Ответ получен от мощной модели агента.",
                         "status": "done",
                     },
                 ],
