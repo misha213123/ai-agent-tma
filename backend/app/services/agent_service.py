@@ -10,7 +10,7 @@ class AgentService:
         self.client = get_openai_client()
         self.web_search = WebSearchTool()
 
-    async def run_agent(self, task: str) -> dict:
+    async def run_agent(self, task: str, mode: str = "fast") -> dict:
         search_results = []
 
         try:
@@ -28,11 +28,15 @@ class AgentService:
                     f"{item['link']}\n"
                 )
 
+
+        model = "gpt-5.2" if mode == "smart" else "gpt-5-mini"
+        reasoning_effort = "medium" if mode == "smart" else "low"
+
         response = await self.client.responses.create(
             model="gpt-5.2",
             reasoning={
-                "effort": "medium",
-            },
+    "effort": "medium",
+},
             input=[
                 {
                     "role": "system",

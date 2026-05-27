@@ -15,7 +15,10 @@ router = APIRouter(prefix="/agent", tags=["agent"])
 async def run_agent(request: AgentRequest, db: Session = Depends(get_db)):
     try:
         service = AgentService()
-        result = await service.run_agent(request.task)
+        result = await service.run_agent(
+    task=request.task,
+    mode=request.mode,
+)
 
         repository = AgentTaskRepository()
         repository.create_task(
