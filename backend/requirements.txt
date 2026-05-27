@@ -7,4 +7,3 @@ psycopg2-binary
 httpx
 aiogram
 pydantic-settings
-duckduckgo-search==6.1.8
