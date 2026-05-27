@@ -13,11 +13,10 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 async def chat(request: ChatRequest, db: Session = Depends(get_db)):
     try:
         service = ChatService()
-        telegram_id = "demo-user"
 
         answer = await service.generate_response(
             db=db,
-            telegram_id=telegram_id,
+            telegram_id=request.telegram_id,
             message=request.message,
         )
 
@@ -28,9 +27,8 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
 
 @router.get("/history")
-async def get_chat_history(db: Session = Depends(get_db)):
+async def get_chat_history(telegram_id: str = "demo-user", db: Session = Depends(get_db)):
     try:
-        telegram_id = "demo-user"
         memory = MemoryService()
 
         messages = memory.get_recent_messages(
@@ -58,9 +56,8 @@ async def get_chat_history(db: Session = Depends(get_db)):
 
 
 @router.delete("/history")
-async def clear_chat_history(db: Session = Depends(get_db)):
+async def clear_chat_history(telegram_id: str = "demo-user", db: Session = Depends(get_db)):
     try:
-        telegram_id = "demo-user"
         memory = MemoryService()
 
         deleted_count = memory.clear_history(

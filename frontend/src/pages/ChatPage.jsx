@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, Bot, ArrowLeft, Sparkles } from "lucide-react";
 import { sendChatMessage } from "../api/chatApi";
+import { getTelegramUser } from "../utils/telegram";
 
 const quickPrompts = [
   "Сделай план на день",
@@ -33,7 +34,8 @@ export default function ChatPage({ onBack }) {
     setLoading(true);
 
     try {
-      const data = await sendChatMessage(text);
+      const tgUser = getTelegramUser();
+      const data = await sendChatMessage(text, tgUser.telegram_id);
       setMessages((prev) => [...prev, { role: "assistant", text: data.answer }]);
     } catch (error) {
       setMessages((prev) => [

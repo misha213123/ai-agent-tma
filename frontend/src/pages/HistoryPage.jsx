@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, Trash2, Clock3 } from "lucide-react";
 import { clearChatHistory, getChatHistory } from "../api/chatApi";
+import { getTelegramUser } from "../utils/telegram";
 
 export default function HistoryPage({ onBack }) {
   const [items, setItems] = useState([]);
@@ -10,7 +11,8 @@ export default function HistoryPage({ onBack }) {
     setLoading(true);
 
     try {
-      const data = await getChatHistory();
+      const tgUser = getTelegramUser();
+      const data = await getChatHistory(tgUser.telegram_id);
       setItems(data.items || []);
     } catch {
       setItems([]);
@@ -20,7 +22,8 @@ export default function HistoryPage({ onBack }) {
   }
 
   async function handleClear() {
-    await clearChatHistory();
+    const tgUser = getTelegramUser();
+    await clearChatHistory(tgUser.telegram_id);
     setItems([]);
   }
 
