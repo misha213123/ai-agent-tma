@@ -1,23 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Send, Sparkles } from "lucide-react";
 
-import { sendChatMessage } from "../api/chatApi";
-import { getTelegramUser } from "../utils/telegram";
+import { getChatHistory, sendChatMessage } from "../api/chatApi";
 import { getRelationship } from "../api/relationshipApi";
+import { getTelegramUser } from "../utils/telegram";
 
 export default function CharacterChatPage({ character, onBack }) {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      text: `Привет 💫 Я ${character.name}. ${character.role}. Чем займёмся?`,
-    },
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [relationship, setRelationship] = useState(null);
+  const [historyLoading, setHistoryLoading] = useState(true);
 
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    loadInitialData();
+  }, [character.id]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({
@@ -25,9 +24,16 @@ export default function CharacterChatPage({ character, onBack }) {
     });
   }, [messages, loading]);
 
-  useEffect(() => {
-    loadRelationship();
-  }, []);
+  async function loadInitialData() {
+    setHistoryLoading(true);
+
+    await Promise.all([
+      loadRelationship(),
+      loadCharacterHistory(),
+    ]);
+
+    setHistoryLoading(false);
+  }
 
   async function loadRelationship() {
     try {
@@ -36,6 +42,50 @@ export default function CharacterChatPage({ character, onBack }) {
     } catch {
       setRelationship(null);
     }
+  }
+
+  async function loadCharacterHistory() {
+    try {
+      const tgUser = getTelegramUser();
+      const data = await getChatHistory(tgUser.telegram_id, character.id);
+
+      const historyItems = data.items || [];
+
+      if (historyItems.length === 0) {
+        setMessages([
+          {
+            role: "assistant",
+            text: `Привет 💫 Я ${character.name}. ${character.role}. Чем займёмся?`,
+          },
+        ]);
+
+        return;
+      }
+
+      setMessages(
+        historyItems.map((item) => ({
+          role: item.role,
+          text: cleanCharacterPrompt(item.content),
+        }))
+      );
+    } catch {
+      setMessages([
+        {
+          role: "assistant",
+          text: `Привет 💫 Я ${character.name}. ${character.role}. Чем займёмся?`,
+        },
+      ]);
+    }
+  }
+
+  function cleanCharacterPrompt(text) {
+    const marker = `Пользователь пишет персонажу ${character.name}:`;
+
+    if (text.includes(marker)) {
+      return text.split(marker).pop().trim();
+    }
+
+    return text;
   }
 
   async function handleSend() {
@@ -150,14 +200,21 @@ ${character.prompt}
       )}
 
       <section className="messages character-messages">
-        {messages.map((message, index) => (
-          <div
-            key={`${message.role}-${index}`}
-            className={`message ${message.role} fade-in`}
-          >
-            {message.text}
+        {historyLoading && (
+          <div className="message assistant">
+            Загружаю историю общения...
           </div>
-        ))}
+        )}
+
+        {!historyLoading &&
+          messages.map((message, index) => (
+            <div
+              key={`${message.role}-${index}`}
+              className={`message ${message.role} fade-in`}
+            >
+              {message.text}
+            </div>
+          ))}
 
         {loading && (
           <div className="message assistant typing-bubble">
