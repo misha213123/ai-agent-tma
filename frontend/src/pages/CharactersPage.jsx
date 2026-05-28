@@ -1,43 +1,13 @@
 import {
   Heart,
   MessageCircleMore,
-  Sparkles,
   Crown,
   Flame,
 } from "lucide-react";
 
-const characters = [
-  {
-    id: 1,
-    name: "Алина",
-    role: "Романтичная AI девушка",
-    tag: "TOP",
-    mood: "💕",
-  },
-  {
-    id: 2,
-    name: "София",
-    role: "Заботливая помощница",
-    tag: "NEW",
-    mood: "✨",
-  },
-  {
-    id: 3,
-    name: "Мия",
-    role: "Аниме вайб",
-    tag: "HOT",
-    mood: "🔥",
-  },
-  {
-    id: 4,
-    name: "Макс",
-    role: "AI наставник",
-    tag: "PRO",
-    mood: "🧠",
-  },
-];
+import { characters } from "../data/characters";
 
-export default function CharactersPage() {
+export default function CharactersPage({ onOpenCharacter }) {
   return (
     <section className="characters-preview">
       <div className="section-title">
@@ -47,7 +17,12 @@ export default function CharactersPage() {
 
       <div className="characters-scroll">
         {characters.map((character) => (
-          <button className="character-preview-card" type="button" key={character.id}>
+          <button
+            className="character-preview-card"
+            type="button"
+            key={character.id}
+            onClick={() => onOpenCharacter(character)}
+          >
             <div className="character-card-top">
               <div className="character-preview-avatar">{character.mood}</div>
               <div className="character-mini-badge">{character.tag}</div>

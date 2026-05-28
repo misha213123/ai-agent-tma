@@ -18,9 +18,16 @@ import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import CharactersPage from "./pages/CharactersPage";
 import AIPlusPage from "./pages/AIPlusPage";
+import CharacterChatPage from "./pages/CharacterChatPage";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
+
+function openCharacter(character) {
+  setSelectedCharacter(character);
+  setScreen("character-chat");
+}
 
   if (screen === "chat") {
     return (
@@ -88,6 +95,18 @@ export default function App() {
       </div>
     );
   }
+
+
+if (screen === "character-chat" && selectedCharacter) {
+  return (
+    <div className="app">
+      <CharacterChatPage
+        character={selectedCharacter}
+        onBack={() => setScreen("home")}
+      />
+    </div>
+  );
+}
 
   return (
     <div className="app">
@@ -171,7 +190,7 @@ export default function App() {
           </button>
         </section>
 
-        <CharactersPage />
+        <CharactersPage onOpenCharacter={openCharacter} />
 
         <section className="tools-section">
           <div className="section-title">

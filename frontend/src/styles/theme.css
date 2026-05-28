@@ -988,3 +988,62 @@ button {
   font-size: 13px;
   line-height: 1.4;
 }
+
+
+.character-chat-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.character-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.character-chat-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.character-chat-header p {
+  margin: 3px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+}
+
+.character-chat-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 19px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: linear-gradient(135deg, #9b2cff, #ff2df7, #00eaff);
+  box-shadow: 0 0 26px rgba(255, 45, 247, 0.28);
+}
+
+.character-chat-hero {
+  margin-top: 18px;
+  padding: 17px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: linear-gradient(135deg, rgba(255, 45, 247, 0.1), rgba(0, 234, 255, 0.08));
+  border: 1px solid rgba(114, 247, 255, 0.14);
+}
+
+.character-chat-hero h3 {
+  margin: 5px 0 4px;
+  font-size: 18px;
+}
+
+.character-chat-hero span {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+}
+
+.character-messages {
+  min-height: 48vh;
+}
