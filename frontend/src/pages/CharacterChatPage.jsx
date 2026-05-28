@@ -32,9 +32,10 @@ export default function CharacterChatPage({ character, onBack }) {
 
     try {
       const data = await sendChatMessage(
-        characterMessage,
-        `${tgUser.telegram_id}:${character.id}`
-      );
+  characterMessage,
+  tgUser.telegram_id,
+  character.id
+);
 
       setMessages((prev) => [
         ...prev,

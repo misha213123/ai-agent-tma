@@ -9,10 +9,17 @@ class ChatService:
         self.client = get_openai_client()
         self.memory = MemoryService()
 
-    async def generate_response(self, db: Session, telegram_id: str, message: str) -> str:
+    async def generate_response(
+        self,
+        db: Session,
+        telegram_id: str,
+        message: str,
+        character_slug: str | None = None,
+    ) -> str:
         recent_messages = self.memory.get_recent_messages(
             db=db,
             telegram_id=telegram_id,
+            character_slug=character_slug,
             limit=10,
         )
 
@@ -30,8 +37,8 @@ class ChatService:
             {
                 "role": "system",
                 "content": (
-                    "Ты умный AI ассистент внутри Telegram Mini App. "
-                    "Отвечай на русском, кратко, полезно и по делу. "
+                    "Ты AI ассистент внутри Telegram Mini App. "
+                    "Отвечай на русском, живо, полезно и по контексту. "
                     "Учитывай историю диалога пользователя."
                 ),
             },
@@ -45,12 +52,13 @@ class ChatService:
         self.memory.save_message(
             db=db,
             telegram_id=telegram_id,
+            character_slug=character_slug,
             role="user",
             content=message,
         )
 
         response = await self.client.responses.create(
-            model="gpt-4.1-mini",
+            model="gpt-5-mini",
             input=messages,
         )
 
@@ -59,6 +67,7 @@ class ChatService:
         self.memory.save_message(
             db=db,
             telegram_id=telegram_id,
+            character_slug=character_slug,
             role="assistant",
             content=answer,
         )

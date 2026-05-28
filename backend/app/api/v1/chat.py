@@ -17,6 +17,7 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         answer = await service.generate_response(
             db=db,
             telegram_id=request.telegram_id,
+            character_slug=request.character_slug,
             message=request.message,
         )
 
@@ -27,13 +28,18 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
 
 @router.get("/history")
-async def get_chat_history(telegram_id: str = "demo-user", db: Session = Depends(get_db)):
+async def get_chat_history(
+    telegram_id: str = "demo-user",
+    character_slug: str | None = None,
+    db: Session = Depends(get_db),
+):
     try:
         memory = MemoryService()
 
         messages = memory.get_recent_messages(
             db=db,
             telegram_id=telegram_id,
+            character_slug=character_slug,
             limit=30,
         )
 
@@ -45,6 +51,7 @@ async def get_chat_history(telegram_id: str = "demo-user", db: Session = Depends
                     "id": message.id,
                     "role": message.role,
                     "content": message.content,
+                    "character_slug": message.character_slug,
                     "created_at": str(message.created_at),
                 }
                 for message in messages
@@ -56,13 +63,18 @@ async def get_chat_history(telegram_id: str = "demo-user", db: Session = Depends
 
 
 @router.delete("/history")
-async def clear_chat_history(telegram_id: str = "demo-user", db: Session = Depends(get_db)):
+async def clear_chat_history(
+    telegram_id: str = "demo-user",
+    character_slug: str | None = None,
+    db: Session = Depends(get_db),
+):
     try:
         memory = MemoryService()
 
         deleted_count = memory.clear_history(
             db=db,
             telegram_id=telegram_id,
+            character_slug=character_slug,
         )
 
         return {

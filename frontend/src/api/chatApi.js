@@ -1,6 +1,12 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://ai-agent-backend-ptl5.onrender.com";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://ai-agent-backend-ptl5.onrender.com";
 
-export async function sendChatMessage(message, telegramId = "demo-user") {
+export async function sendChatMessage(
+  message,
+  telegramId = "demo-user",
+  characterSlug = null
+) {
   const response = await fetch(`${API_URL}/api/v1/chat`, {
     method: "POST",
     headers: {
@@ -9,6 +15,7 @@ export async function sendChatMessage(message, telegramId = "demo-user") {
     body: JSON.stringify({
       message,
       telegram_id: telegramId,
+      character_slug: characterSlug,
     }),
   });
 
@@ -19,8 +26,16 @@ export async function sendChatMessage(message, telegramId = "demo-user") {
   return response.json();
 }
 
-export async function getChatHistory(telegramId = "demo-user") {
-  const response = await fetch(`${API_URL}/api/v1/chat/history?telegram_id=${telegramId}`);
+export async function getChatHistory(telegramId = "demo-user", characterSlug = null) {
+  const params = new URLSearchParams({
+    telegram_id: telegramId,
+  });
+
+  if (characterSlug) {
+    params.append("character_slug", characterSlug);
+  }
+
+  const response = await fetch(`${API_URL}/api/v1/chat/history?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("Не удалось загрузить историю");
@@ -29,8 +44,16 @@ export async function getChatHistory(telegramId = "demo-user") {
   return response.json();
 }
 
-export async function clearChatHistory(telegramId = "demo-user") {
-  const response = await fetch(`${API_URL}/api/v1/chat/history?telegram_id=${telegramId}`, {
+export async function clearChatHistory(telegramId = "demo-user", characterSlug = null) {
+  const params = new URLSearchParams({
+    telegram_id: telegramId,
+  });
+
+  if (characterSlug) {
+    params.append("character_slug", characterSlug);
+  }
+
+  const response = await fetch(`${API_URL}/api/v1/chat/history?${params.toString()}`, {
     method: "DELETE",
   });
 
