@@ -16,6 +16,8 @@ import ChatPage from "./pages/ChatPage";
 import AgentPage from "./pages/AgentPage";
 import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
+import CharactersPage from "./pages/CharactersPage";
+import AIPlusPage from "./pages/AIPlusPage";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
@@ -28,15 +30,13 @@ export default function App() {
     );
   }
 
-
   if (screen === "profile") {
-  return (
-    <div className="app">
-      <ProfilePage onBack={() => setScreen("home")} />
-    </div>
-  );
-}
-
+    return (
+      <div className="app">
+        <ProfilePage onBack={() => setScreen("home")} />
+      </div>
+    );
+  }
 
   if (screen === "agent") {
     return (
@@ -46,14 +46,48 @@ export default function App() {
     );
   }
 
-if (screen === "history") {
-  return (
-    <div className="app">
-      <HistoryPage onBack={() => setScreen("home")} />
-    </div>
-  );
-}
+  if (screen === "history") {
+    return (
+      <div className="app">
+        <HistoryPage onBack={() => setScreen("home")} />
+      </div>
+    );
+  }
 
+  if (screen === "ai-plus") {
+    return (
+      <div className="app">
+        <main className="phone fade-in">
+          <AIPlusPage
+            openAgent={() => setScreen("agent")}
+            openHistory={() => setScreen("history")}
+          />
+
+          <nav className="bottom-nav">
+            <button className="nav-item" type="button" onClick={() => setScreen("home")}>
+              <Sparkles size={18} />
+              <span>Главная</span>
+            </button>
+
+            <button className="nav-item" type="button" onClick={() => setScreen("chat")}>
+              <MessageCircle size={18} />
+              <span>Чат</span>
+            </button>
+
+            <button className="nav-item active" type="button">
+              <Bot size={18} />
+              <span>AI+</span>
+            </button>
+
+            <button className="nav-item" type="button" onClick={() => setScreen("profile")}>
+              <User size={18} />
+              <span>Профиль</span>
+            </button>
+          </nav>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -63,9 +97,9 @@ if (screen === "history") {
 
         <header className="home-header">
           <div>
-            <p className="eyebrow">AI AGENT TMA</p>
-            <h1>Твой личный AI центр</h1>
-            <span>Чат, агент, память и задачи в Telegram</span>
+            <p className="eyebrow">AI COMPANION TMA</p>
+            <h1>AI персонажи и агентный мозг</h1>
+            <span>Общение, память, задачи и AI+ инструменты в Telegram</span>
           </div>
 
           <div className="avatar pulse">M</div>
@@ -75,13 +109,13 @@ if (screen === "history") {
           <div className="hero-content">
             <div className="hero-badge">
               <Sparkles size={15} />
-              Premium Neon AI
+              Companion + Agent
             </div>
 
-            <h2>Умный ассистент нового уровня</h2>
+            <h2>Живые AI персонажи с полезным мозгом</h2>
             <p>
-              Быстрые ответы, пошаговый агент, память диалога и будущие
-              инструменты автоматизации.
+              Не просто чат: персонажи помнят пользователя, общаются с характером
+              и могут использовать AI Agent для задач.
             </p>
 
             <div className="hero-actions">
@@ -90,9 +124,9 @@ if (screen === "history") {
                 Открыть чат
               </button>
 
-              <button type="button" onClick={() => setScreen("agent")}>
+              <button type="button" onClick={() => setScreen("ai-plus")}>
                 <Bot size={19} />
-                Агент
+                AI+
               </button>
             </div>
           </div>
@@ -100,16 +134,16 @@ if (screen === "history") {
 
         <section className="stats-row">
           <div>
-            <strong>GPT</strong>
-            <span>4.1 mini</span>
+            <strong>AI</strong>
+            <span>Characters</span>
           </div>
           <div>
             <strong>DB</strong>
-            <span>Supabase</span>
+            <span>Memory</span>
           </div>
           <div>
             <strong>LIVE</strong>
-            <span>24/7</span>
+            <span>TMA</span>
           </div>
         </section>
 
@@ -119,7 +153,7 @@ if (screen === "history") {
               <MessageCircle />
             </div>
             <h3>AI Чат</h3>
-            <p>Задавай вопросы, проси идеи, планы, тексты и объяснения.</p>
+            <p>Общение, память, тексты, идеи, планы и быстрые ответы.</p>
             <span>
               Перейти <ChevronRight size={16} />
             </span>
@@ -130,17 +164,19 @@ if (screen === "history") {
               <Bot />
             </div>
             <h3>AI Агент</h3>
-            <p>Дай задачу — агент разложит её на шаги и выдаст результат.</p>
+            <p>Задачи, reasoning, web research, шаги и результат.</p>
             <span>
               Запустить <ChevronRight size={16} />
             </span>
           </button>
         </section>
 
+        <CharactersPage />
+
         <section className="tools-section">
           <div className="section-title">
             <h3>Модули системы</h3>
-            <p>Основа для будущего AI SaaS</p>
+            <p>Основа для AI Companion + AI OS</p>
           </div>
 
           <div className="tool-list">
@@ -156,7 +192,7 @@ if (screen === "history") {
             <Zap size={22} />
             <div>
               <h4>Следующий уровень</h4>
-              <p>Streaming, файлы, web search, voice и tool calling.</p>
+              <p>Character chat, voice, images, files, subscriptions и tool calling.</p>
             </div>
           </div>
         </section>
@@ -172,20 +208,15 @@ if (screen === "history") {
             <span>Чат</span>
           </button>
 
-<button className="nav-item" type="button" onClick={() => setScreen("profile")}>
-  <User size={18} />
-  <span>Профиль</span>
-</button>
-
-          <button className="nav-item" type="button" onClick={() => setScreen("agent")}>
+          <button className="nav-item" type="button" onClick={() => setScreen("ai-plus")}>
             <Bot size={18} />
-            <span>Агент</span>
+            <span>AI+</span>
           </button>
 
-          <button className="nav-item" type="button" onClick={() => setScreen("history")}>
-  <User size={18} />
-  <span>История</span>
-</button>
+          <button className="nav-item" type="button" onClick={() => setScreen("profile")}>
+            <User size={18} />
+            <span>Профиль</span>
+          </button>
         </nav>
       </main>
     </div>
