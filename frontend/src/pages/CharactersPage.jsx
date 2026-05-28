@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Heart,
   MessageCircleMore,
@@ -5,9 +6,24 @@ import {
   Flame,
 } from "lucide-react";
 
-import { characters } from "../data/characters";
+import { getCharacters } from "../api/characterApi";
 
 export default function CharactersPage({ onOpenCharacter }) {
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    async function loadCharacters() {
+      try {
+        const data = await getCharacters();
+        setCharacters(data);
+      } catch {
+        setCharacters([]);
+      }
+    }
+
+    loadCharacters();
+  }, []);
+
   return (
     <section className="characters-preview">
       <div className="section-title">
@@ -20,8 +36,18 @@ export default function CharactersPage({ onOpenCharacter }) {
           <button
             className="character-preview-card"
             type="button"
-            key={character.id}
-            onClick={() => onOpenCharacter(character)}
+            key={character.slug}
+            onClick={() =>
+              onOpenCharacter({
+                id: character.slug,
+                name: character.name,
+                role: character.role,
+                tag: character.tag,
+                mood: character.mood,
+                status: character.status,
+                prompt: character.prompt,
+              })
+            }
           >
             <div className="character-card-top">
               <div className="character-preview-avatar">{character.mood}</div>
@@ -44,6 +70,10 @@ export default function CharactersPage({ onOpenCharacter }) {
           </button>
         ))}
       </div>
+
+      {characters.length === 0 && (
+        <p className="empty-text">Персонажи загружаются...</p>
+      )}
 
       <section className="premium-character-banner glow">
         <div className="premium-icon">
