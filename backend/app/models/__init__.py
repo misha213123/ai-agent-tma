@@ -2,5 +2,12 @@ from app.models.user import User
 from app.models.message import Message
 from app.models.agent_task import AgentTask
 from app.models.character import Character
+from app.models.character_relationship import CharacterRelationship
 
-__all__ = ["User", "Message", "AgentTask", "Character"]
+__all__ = [
+    "User",
+    "Message",
+    "AgentTask",
+    "Character",
+    "CharacterRelationship",
+]

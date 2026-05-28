@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.services.relationship_service import RelationshipService
 from app.db.database import get_db
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.services.chat_service import ChatService
@@ -21,11 +22,18 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
             message=request.message,
         )
 
+        if request.character_slug:
+            relationship_service = RelationshipService()
+            relationship_service.add_message_progress(
+                db=db,
+                telegram_id=request.telegram_id,
+                character_slug=request.character_slug,
+            )
+
         return ChatResponse(answer=answer)
 
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error))
-
 
 @router.get("/history")
 async def get_chat_history(
