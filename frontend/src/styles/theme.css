@@ -1047,3 +1047,32 @@ button {
 .character-messages {
   min-height: 48vh;
 }
+
+
+
+.relationship-card {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.relationship-card div {
+  padding: 13px 8px;
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(114, 247, 255, 0.12);
+}
+
+.relationship-card span {
+  display: block;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.relationship-card strong {
+  color: #72f7ff;
+  font-size: 13px;
+}
